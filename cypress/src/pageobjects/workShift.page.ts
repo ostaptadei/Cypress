@@ -9,10 +9,10 @@ const workShiftPageLocators = {
   btnSave: '#btnSave',
   timePickerFrom: '#workShift_workHours_from',
   timePickerTo: '#workShift_workHours_to',
-  shiftName: `//a[text()='${inputs.shiftName}']`,
-  hoursFrom: `//a[text()='${inputs.shiftName}']/../../td[3]`,
-  hoursTo: `//a[text()='${inputs.shiftName}']/../../td[4]`,
-  checkBox: `//a[text()='${inputs.shiftName}']/../../td/input`,
+  shiftName: `tr a:contains(${inputs.shiftName})`,
+  hoursFrom: `tbody :contains(${inputs.shiftName}) :contains(09:00)`,
+  hoursTo: `tbody :contains(${inputs.shiftName}) :contains(16:00)`,
+  checkBox: `tbody :contains(${inputs.shiftName}) input`,
   btnDelete: `#btnDelete`,
   btnOk: `#dialogDeleteBtn`,
   customerList: '#customerList',
@@ -48,13 +48,13 @@ export class WorkShiftPage extends Page {
   }
 
   get checkBox(): Cypress.Chainable<JQuery<HTMLElement>> {
-    return cy.xpath(`//a[text()='${inputs.shiftName}']/../../td/input`, {
+    return cy.get(workShiftPageLocators.checkBox, {
       timeout: 3000,
     })
   }
 
   get shiftName(): Cypress.Chainable<JQuery<HTMLElement>> {
-    return cy.xpath(workShiftPageLocators.shiftName, { timeout: 3000 })
+    return cy.get(workShiftPageLocators.shiftName, { timeout: 3000 })
   }
 
   get btnDelete(): Cypress.Chainable<JQuery<HTMLElement>> {
